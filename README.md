@@ -6,17 +6,24 @@ Web automation for ChatGPT using Selenium WebDriver
 GUI interface built with Tkinter for easy interaction
 Session management - save/load browser state and cookies
 Multiple deployment options - Desktop app, API server, or Docker
+
 🚀 Available Modes
+
 🖥️ Desktop Application - Traditional GUI (`main.py`, `chatgpt_gui.py`)
+
 📱 API Server - FastAPI-based server with REST endpoints (`chatgpt_api_server.py`)
+
 🐳 Docker - Containerized deployment with VNC access
+
 💻 API Client - GUI client that connects to the API server
+
 🛠️ Key Components
 `chatgpt_bot_core.py` - Core automation logic
 `chatgpt_gui.py` - Desktop GUI interface
 `chatgpt_api_server.py` - FastAPI server
 `chatgpt_api_client.py` - API client GUI
 Cross-platform support (Windows `.bat` + Linux `.sh` scripts)
+
 📦 Tech Stack
 Selenium + webdriver-manager for browser automation
 Tkinter for desktop GUI
