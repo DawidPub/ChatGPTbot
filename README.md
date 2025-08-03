@@ -1,8 +1,33 @@
 # ChatGPT Bot - Complete Solution
+This is a ChatGPT Bot project - a Python automation tool that provides multiple ways to interact with ChatGPT through web automation using Selenium.
 
-## 🚀 Dostępne tryby uruchomienia
+🎯 Core Features
+Web automation for ChatGPT using Selenium WebDriver
+GUI interface built with Tkinter for easy interaction
+Session management - save/load browser state and cookies
+Multiple deployment options - Desktop app, API server, or Docker
+🚀 Available Modes
+🖥️ Desktop Application - Traditional GUI (`main.py`, `chatgpt_gui.py`)
+📱 API Server - FastAPI-based server with REST endpoints (`chatgpt_api_server.py`)
+🐳 Docker - Containerized deployment with VNC access
+💻 API Client - GUI client that connects to the API server
+🛠️ Key Components
+`chatgpt_bot_core.py` - Core automation logic
+`chatgpt_gui.py` - Desktop GUI interface
+`chatgpt_api_server.py` - FastAPI server
+`chatgpt_api_client.py` - API client GUI
+Cross-platform support (Windows `.bat` + Linux `.sh` scripts)
+📦 Tech Stack
+Selenium + webdriver-manager for browser automation
+Tkinter for desktop GUI
+FastAPI + Uvicorn for API server
+Docker for containerization
+PyInstaller for executable compilation
+The project offers flexibility from simple desktop use to scalable API-based deployments.
 
-### 1. 🐳 Docker (Zalecane)
+## 🚀 Available Startup Modes
+
+### 1. 🐳 Docker (Recommended)
 ```batch
 # Windows
 start-docker.bat
@@ -16,7 +41,7 @@ start-docker.bat
 # Windows
 RUN_ChatGPT_API.bat
 
-# Linux/macOS  
+# Linux/macOS
 ./run_chatgpt_api.sh
 ```
 
@@ -29,19 +54,20 @@ RUN_ChatGPT_working.bat
 ./run_chatgpt_bot_working.sh
 ```
 
-## 🐳 Docker - Najłatwiejszy sposób
+## 🐳 Docker - The Easiest Way
 
-### Szybki start
-1. Zainstaluj Docker Desktop
-2. Uruchom: `start-docker.bat` (Windows) lub `./start-docker.sh` (Linux)
-3. Otwórz: http://localhost:8000
+### Quick Start
+1. Install Docker Desktop
+2. Run: `start-docker.bat` (Windows) or `./start-docker.sh` (Linux)
+3. Open: http://localhost:8000
 
-### Dostęp do GUI przez VNC
-- Adres: localhost:5900
-- Hasło: brak
-- Klient VNC: TightVNC, RealVNC, lub UltraVNC
+### Accessing the GUI via VNC
+- Address: localhost:5900
+- Password: none
+- VNC client: TightVNC, RealVNC, or UltraVNC
 
-Więcej informacji: [README-Windows.md](README-Windows.md) | [INSTALL_LINUX.md](INSTALL_LINUX.md)
+More information: [README-Windows.md](README-Windows.md) | [INSTALL_LINUX.md](INSTALL_LINUX.md)
+
 
 ## Prerequisites
 - Python 3.7 or higher installed
