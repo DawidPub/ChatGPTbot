@@ -1,0 +1,31 @@
+# ChatGPT Bot - Required Python packages
+# Core dependencies for ChatGPT Bot functionality
+selenium>=4.0.0
+webdriver-manager>=3.8.0
+
+# API System dependencies
+fastapi>=0.100.0
+uvicorn>=0.20.0
+pydantic>=2.0.0
+requests>=2.28.0
+
+# GUI dependencies (usually included with Python)
+tkinter  # Built-in with Python, listed for completeness
+
+# Optional packages for development/compilation
+pyinstaller>=6.0.0
+
+# Development and testing
+pytest>=7.0.0
+black>=22.0.0
+flake8>=4.0.0
+
+# Additional utilities
+python-multipart>=0.0.5  # For FastAPI file uploads if needed
+aiofiles>=0.8.0  # For async file operations in FastAPI
+
+# Linux-specific optional packages
+# Uncomment if needed on your Linux distribution
+# python3-tk          # Tkinter for some Linux distributions
+# chromium-browser    # Alternative to Chrome
+# xvfb               # Virtual framebuffer for headless systems

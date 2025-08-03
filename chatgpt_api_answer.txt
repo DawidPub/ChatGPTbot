@@ -1,0 +1,48 @@
+W projekcie z Dockerem na GitHub powinieneś wysyłać tylko te pliki, które są niezbędne do zbudowania i uruchomienia aplikacji oraz nie zawierają poufnych danych. Poniżej znajdziesz listę plików, które powinny być w repozytorium, a także tych, których zdecydowanie NIE powinno tam być.
+✅ CO WYSYŁAĆ NA GITHUB (do repozytorium)
+Dockerfile
+Plik z instrukcjami budowania obrazu kontenera.
+docker-compose.yml (jeśli używasz)
+Definiuje, jak uruchamiać wiele kontenerów razem.
+Pliki aplikacji źródłowej
+Kod źródłowy w Pythonie (.py), konfiguracje .env.example, szablony HTML itp.
+requirements.txt / pyproject.toml
+Zależności potrzebne do uruchomienia projektu.
+README.md
+Instrukcja jak uruchomić projekt, np. komendy Docker/Compose.
+.dockerignore
+Określa, które pliki mają być pomijane podczas budowania obrazu.
+Skrypty pomocnicze (jeśli są)
+Np. entrypoint.sh, init_db.sh – wszystko co jest potrzebne do uruchomienia.
+❌ CZEGO NIE WYSYŁAĆ NA GITHUB (dodaj do .gitignore)
+Plików z danymi wrażliwymi
+.env, secrets.json, kluczy API, haseł itd.
+Zbudowanych obrazów/kontenerów
+*.tar, *.img, *.qcow2, itd.
+Plików tymczasowych i systemowych
+__pycache__/, .DS_Store, *.log, itp.
+Binariów i zależności zainstalowanych lokalnie
+Np. katalogi venv/, node_modules/, *.pyc, itp.
+Dużych plików danych/testów/treningowych
+Użyj Git LFS lub przechowuj je poza repozytorium (np. S3, GDrive).
+Przykład .gitignore dla projektu z Dockerem i Pythonem:
+gitignore
+Kopiuj
+Edytuj
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+.env
+
+# Docker
+*.tar
+docker-compose.override.yml
+
+# System
+.DS_Store
+*.log
+Jeśli chcesz, mogę wygenerować gotową strukturę repozytorium lub pliki startowe (Dockerfile, compose itd.) pod Twój projekt – daj znać, jaki to typ projektu (np. Flask, FastAPI, Django, inny).

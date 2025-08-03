@@ -1,0 +1,194 @@
+version: '3.8'
+
+services:
+  # ChatGPT Bot API Server
+  chatgpt-api:
+    build: 
+      context: .
+      target: production
+    container_name: chatgpt-bot-api
+    ports:
+      - "8000:8000"
+      - "5900:5900"  # VNC for GUI access
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DISPLAY=:99
+      - CHATGPT_ENV=production
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs  
+      - ./sessions:/app/sessions
+      - /dev/shm:/dev/shm  # Shared memory for Chrome
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    networks:
+      - chatgpt-network
+
+  # Development version
+  chatgpt-api-dev:
+    build:
+      context: .
+      target: development
+    container_name: chatgpt-bot-api-dev
+    ports:
+      - "8001:8000"
+      - "5901:5900"
+      - "8888:8888"  # Jupyter
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DISPLAY=:99
+      - CHATGPT_ENV=development
+    volumes:
+      - .:/app
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - /dev/shm:/dev/shm
+    command: python chatgpt_api_server.py
+    restart: "no"
+    networks:
+      - chatgpt-network
+    profiles:
+      - dev
+
+  # Redis for session storage and caching
+  redis:
+    image: redis:7-alpine
+    container_name: chatgpt-bot-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+      - ./docker/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    networks:
+      - chatgpt-network
+    profiles:
+      - redis
+
+  # Nginx reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: chatgpt-bot-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/ssl:/etc/nginx/ssl:ro
+      - ./logs/nginx:/var/log/nginx
+    depends_on:
+      - chatgpt-api
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - chatgpt-network
+    profiles:
+      - nginx
+
+  # PostgreSQL database (for future use)
+  postgres:
+    image: postgres:15-alpine
+    container_name: chatgpt-bot-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: chatgpt_bot
+      POSTGRES_USER: chatgpt
+      POSTGRES_PASSWORD: chatgpt_password_change_me
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chatgpt -d chatgpt_bot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - chatgpt-network
+    profiles:
+      - database
+
+  # Monitoring with Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: chatgpt-bot-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    networks:
+      - chatgpt-network
+    profiles:
+      - monitoring
+
+  # Grafana for dashboards
+  grafana:
+    image: grafana/grafana:latest
+    container_name: chatgpt-bot-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./docker/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./docker/grafana/datasources:/etc/grafana/provisioning/datasources
+    restart: unless-stopped
+    networks:
+      - chatgpt-network
+    profiles:
+      - monitoring
+
+volumes:
+  redis_data:
+    driver: local
+  postgres_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  chatgpt-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
