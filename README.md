@@ -1,125 +1,184 @@
-# ChatGPT Bot - Complete Solution
-This is a ChatGPT Bot project - a Python automation tool that provides multiple ways to interact with ChatGPT through web automation using Selenium.
+# 🚀 ChatGPT Bot API System
 
-🎯 Core Features
-Web automation for ChatGPT using Selenium WebDriver
-GUI interface built with Tkinter for easy interaction
-Session management - save/load browser state and cookies
-Multiple deployment options - Desktop app, API server, or Docker
+API system for remote control of ChatGPT Bot with web API functionality and a GUI client.
 
-🚀 Available Modes
+## 📋 Table of Contents
 
-🖥️ Desktop Application - Traditional GUI (`main.py`, `chatgpt_gui.py`)
+- [🎯 Features](#-features)
+- [📦 Installation](#-installation)
+- [🚀 Quick Start](#-quick-start)
+- [🔧 System Components](#-system-components)
+- [📖 API Endpoints](#-api-endpoints)
+- [💻 Usage Examples](#-usage-examples)
+- [🛠️ Troubleshooting](#️-troubleshooting)
 
-📱 API Server - FastAPI-based server with REST endpoints (`chatgpt_api_server.py`)
+## 🎯 Features
 
-🐳 Docker - Containerized deployment with VNC access
+### 🖥️ API Server (FastAPI)
+- **Session Management** - Creating, Monitoring, and Deleting Bot Sessions
+- **Browser Control** - Launching, Saving/Loading State
+- **Asking Questions** - Communicating with ChatGPT via API
+- **Real-time Monitoring** - Session Logs and Status
+- **Automatic Documentation** - Swagger UI under `/docs`
 
-💻 API Client - GUI client that connects to the API server
+### 💻 API Client GUI
+- **Graphical Interface** - Easy-to-use GUI similar to the original ChatGPTGUI
+- **API Connection** - HTTP Communication with the Server
+- **Auto-Refresh** - Automatically Refresh Status and Responses
+- **Session Management** - Create and Cleanup Sessions
+- **Response Logging** - Automatically Save to File
 
-🛠️ Key Components
-`chatgpt_bot_core.py` - Core automation logic
-`chatgpt_gui.py` - Desktop GUI interface
-`chatgpt_api_server.py` - FastAPI server
-`chatgpt_api_client.py` - API client GUI
-Cross-platform support (Windows `.bat` + Linux `.sh` scripts)
+### 🎛️ Launcher GUI
+- **Central Management** - Launch the Server and Client from One Location
+- **Dependency Installation** - Automatically Install Required Packages
+- **Process Monitoring** - Track Server and Client Status
+- **Real-time Logs** - View Logs from Both Components
 
-📦 Tech Stack
-Selenium + webdriver-manager for browser automation
-Tkinter for desktop GUI
-FastAPI + Uvicorn for API server
-Docker for containerization
-PyInstaller for executable compilation
-The project offers flexibility from simple desktop use to scalable API-based deployments.
+## 📦 Installation
 
-## 🚀 Available Startup Modes
+### 1. Basic Requirements
+Make sure you have installed:
+- Python 3.7+
+- All dependencies from the original ChatGPT Bot (selenium, webdriver-manager)
 
-### 1. 🐳 Docker (Recommended)
-```batch
-# Windows
-start-docker.bat
+### 2. Installing API Dependencies
+```bash
+# Automatic installation via script
 
-# Linux/macOS
-./start-docker.sh
+install_api_dependencies.bat
+
+# Or manual installation
+
+pip install fastapi uvicorn pydantic requests
 ```
 
-### 2. 📱 API Server
-```batch
-# Windows
+### 3. Verifying the installation
+```bash
+python test_api.py
+```
+
+## 🚀 Quick Start
+
+### Option 1: GUI Launcher (Recommended)
+```bash
+# Run the main launcher
 RUN_ChatGPT_API.bat
 
-# Linux/macOS
-./run_chatgpt_api.sh
+# Or directly
+python chatgpt_api_launcher.py
 ```
 
-### 3. 🖥️ Desktop Application
-```batch
-# Windows
-RUN_ChatGPT_working.bat
+### Option 2: Manually launch
+```bash
+# Terminal 1: Start the API server
+python chatgpt_api_server.py
 
-# Linux/macOS
-./run_chatgpt_bot_working.sh
+# Terminal 2: Start the client (after starting the server)
+python chatgpt_api_client.py
 ```
 
-## 🐳 Docker - The Easiest Way
+### Option 3: Batch Menu
+```bash
+# Start the interactive menu
+RUN_ChatGPT_API.bat
+```
 
-### Quick Start
-1. Install Docker Desktop
-2. Run: `start-docker.bat` (Windows) or `./start-docker.sh` (Linux)
-3. Open: http://localhost:8000
+## 🔧 System Components
 
-### Accessing the GUI via VNC
-- Address: localhost:5900
-- Password: none
-- VNC client: TightVNC, RealVNC, or UltraVNC
+### `chatgpt_api_server.py` - FastAPI Server
+- **Port**: 8000 (default)
+- **Documentation**: http://localhost:8000/docs
+- **Features**: Bot Management, Sessions, API Endpoints
 
-More information: [README-Windows.md](README-Windows.md) | [INSTALL_LINUX.md](INSTALL_LINUX.md)
+### `chatgpt_api_client.py` - GUI Client
+- **Type**: Tkinter Application
+- **Connection**: HTTP to API Server
+- **Features**: GUI similar to ChatGPTGUI, but via API
 
+### `chatgpt_api_launcher.py` - Launcher
+- **Type**: System management GUI
+- **Features**: Start/stop server and client, install DEP, monitoring
 
-## Prerequisites
-- Python 3.7 or higher installed
-- Internet connection for downloading packages
+### `test_api.py` - Tests
+- **Type**: Test script
+- **Features**: Verify API functionality
 
-## Compilation Steps
+## 📖 API Endpoints
 
-1. **Install Dependencies**
-   - Run `pip install -r requirements.txt` to install required packages
+### 🔗 Basic
+- `GET /` - API information
+- `GET /bot/sessions` - List all sessions
 
-2. **Compile to Executable**
-   - Option A: Run `compile.bat` (recommended)
-   - Option B: Run `pyinstaller chatgpt_bot.spec` manually
+### 🤖 Bot Management
+- `POST /bot/create` - Create a new bot session
+- `DELETE /bot/{session_id}` - Delete a bot session
 
-3. **Find Your Executable**
-   - The compiled executable will be in the `dist/` folder
-   - File name: `ChatGPT_Bot.exe`
+### 🌐 Browser Control
+- `POST /bot/launch` - Launch browser
+- `POST /bot/load_state` - Load browser state
+- `POST /bot/save_state` - Save browser state
+- `POST /bot/close` - Close browser
 
-## Running the Executable
+### ❓ Questions and Answers
+- `POST /bot/ask` - Ask a ChatGPT question
+- `GET /bot/status/{session_id}` - Get session status and logs
 
-1. Navigate to the `dist/` folder
-2. Double-click `ChatGPT_Bot.exe`
-3. The GUI will open with the ChatGPT Bot interface
+### 📊 API Usage Example
 
-## Features
+```python
+import requests
 
-- **Launch Browser**: Opens Chrome browser for ChatGPT
-- **Load Browser State**: Restores saved session and cookies
-- **Save Browser State**: Saves current session for future use
-- **Ask Question**: Send questions to ChatGPT and get responses
-- **Close Browser**: Safely closes the browser
+# Create a session
+response = requests.post("http://localhost:8000/bot/create")
+session_id = response.json()["session_id"]
 
-## Files Created
+# Launch browser
+requests.post("http://localhost:8000/bot/launch",
 
-- `chatgpt_cookies.pkl`: Saved browser cookies
-- `chatgpt_session.json`: Saved session data
-- `chatgpt_answer.txt`: Latest ChatGPT response
+json={"session_id": session_id})
 
-## Troubleshooting
+# Ask a question
+requests.post("http://localhost:8000/bot/ask",
 
-1. **Chrome not found**: Make sure Chrome is installed
-2. **Selenium errors**: The webdriver will be downloaded automatically
-3. **Permission errors**: Run as administrator if needed
-4. **Antivirus warnings**: The executable is safe - add exception if needed
+json={"session_id": session_id, "question": "What is AI?"})
 
-## Distribution
+# Check status
+status = requests.get(f"http://localhost:8000/bot/status/{session_id}")
+print(status.json())
+```
 
-The `ChatGPT_Bot.exe` file is self-contained and can be shared/moved to other Windows computers without requiring Python installation.
+## 💻 Usage examples
+
+### 🎯 Scenario 1: Basic GUI usage
+1. Run `chatgpt_api_launcher.py`
+2. Click "Start Both (Server + Client)"
+3. In the client, click "Connect & Create Session"
+4. Click "Launch Browser"
+5. Enter a question and click "Ask Question"
+
+### 🎯 Scenario 2: Programmatic usage API
+```python
+from chatgpt_api_client import ChatGPTAPIClient
+
+# Create a client
+client = ChatGPTAPIClient("http://localhost:8000")
+
+# Connect and create a session programmatically
+# (requires modifying the class for programmatic use)
+```
+
+### 🎯 Scenario 3: Bulk processing
+```python
+import requests
+import time
+
+api_base = "http://localhost:8000"
+questions = ["What is AI?", "Explain Python", "How does ML work?"]
+
+# Create a session
+session = requests.post(f"{api_base}/bot/create").json()
+session_id = session["session_id"]
+
+# Launch the browser
+requests.post(f"{api_base}/bot/launch", json = {"session_id"})
+
