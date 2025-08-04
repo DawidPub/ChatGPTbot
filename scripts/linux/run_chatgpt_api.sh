@@ -138,7 +138,7 @@ run_tests() {
     echo ""
     echo "Press Enter to continue or Ctrl+C to cancel..."
     read
-    $PYTHON_CMD test_api.py
+    $PYTHON_CMD test/test_api.py
     return_to_menu
 }
 
@@ -194,3 +194,5 @@ chmod +x check_dependencies.sh 2>/dev/null
 
 # Start main loop
 main_loop
+
+

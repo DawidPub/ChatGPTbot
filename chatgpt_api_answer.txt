@@ -1,2 +1,34 @@
-Świetnie. Sprawdzę, które rozwiązania informatyczne związane z KSeF mają największy potencjał rynkowy i marketingowy w segmencie mikrofirm. Skupię się na łatwości wdrożenia, niskim progu wejścia, zapotrzebowaniu oraz możliwym modelu SaaS lub niskokosztowym.
-Daj mi chwilę na zebranie i analizę informacji – wrócę z konkretną rekomendacją.
+Pydantic AI (also referred to as Pydantic, not to be confused with "AI" in name) is a Python library designed to:
+Validate, parse, and serialize data using Python type annotations.
+It’s widely used in modern Python applications, especially those involving APIs, databases, and configuration management.
+🔍 Core Features
+Feature Description
+✅ Data Validation Automatically validates input data using Python type hints (str, int, List[...], Optional[...], etc.)
+🔄 Parsing & Serialization Converts JSON and other data formats to Python objects (and vice versa)
+🛡️ Type Safety Detects type mismatches at runtime
+🚀 Performance Fast validation using compiled code (Pydantic v2 uses pydantic-core in Rust)
+🌐 Framework Integration Works seamlessly with FastAPI, SQLModel, and more
+🧠 Example
+python
+Kopiuj
+Edytuj
+from pydantic import BaseModel
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+
+user = User(id='123', name='Alice', email='alice@example.com')
+print(user.id)  # 123 (auto-casted from str to int)
+⚙️ Typical Use Cases
+FastAPI: Validating request/response bodies
+Data pipelines: Ensuring schema consistency
+Config files: Parsing .json, .env, or .yaml settings
+ORMs & DTOs: Clear data models
+🆕 Pydantic v2 Highlights
+Written in Rust for speed (pydantic-core)
+Better performance (up to 50x faster in benchmarks)
+Improved custom field validation
+Still backward-compatible for most v1 usage
+If you were referring to something different by Pydantic AI (e.g., a company or new product), let me know — but most likely you meant the Python data validation library, Pydantic.

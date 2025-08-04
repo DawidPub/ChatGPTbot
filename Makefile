@@ -103,7 +103,7 @@ docs:
 # Run API tests
 test: check-python
 	@echo "🧪 Running API tests..."
-	@$(PYTHON) test_api.py
+	@$(PYTHON) test/test_api.py
 
 # Clean temporary files
 clean:
