@@ -102,7 +102,7 @@ class ChatGPTBot:
             # First navigate to the domain to set cookies
             self.log_status("Opening ChatGPT...")
             self.driver.get("https://chatgpt.com")
-            time.sleep(2)
+            # time.sleep(2)
             
             # Load cookies if they exist
             if os.path.exists(self.cookies_file):
