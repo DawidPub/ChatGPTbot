@@ -286,6 +286,7 @@ class ChatGPTAPIClient:
     def start_status_polling(self):
         """Start polling API for status updates"""
         def poll_status():
+            last_response = None
             if self.session_id and self.auto_refresh_var.get():
                 result = self.make_api_request("GET", f"/bot/status/{self.session_id}")
                 if result:
@@ -304,17 +305,19 @@ class ChatGPTAPIClient:
                     
                     # Update response
                     current_response = result.get('current_response')
-                    if current_response and current_response.strip():
-                        self.update_response_display(current_response)
-                        
-                        # Save response to file if it's complete
-                        if result.get('status') == 'completed':
-                            try:
-                                with open("chatgpt_api_answer.txt", "w", encoding="utf-8") as f:
-                                    f.write(current_response)
-                                self.log_status("💾 Response saved to chatgpt_api_answer.txt")
-                            except Exception as e:
-                                self.log_status(f"❌ Error saving response: {e}")
+                    if current_response and current_response != last_response:
+                       last_response = current_response
+                       if current_response and current_response.strip():
+                           self.update_response_display(current_response)
+                           
+                           # Save response to file if it's complete
+                           if result.get('status') == 'completed':
+                               try:
+                                   with open("chatgpt_api_answer.txt", "w", encoding="utf-8") as f:
+                                       f.write(current_response)
+                                   self.log_status("💾 Response saved to chatgpt_api_answer")
+                               except Exception as e:
+                                   self.log_status(f"❌ Error saving response: {e}")
             
             # Schedule next poll
             if self.polling_active:
