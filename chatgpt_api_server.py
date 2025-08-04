@@ -46,6 +46,17 @@ class BrowserActionResponse(BaseModel):
     success: bool
     message: str
 
+class QuestionWithAnswerRequest(BaseModel):
+    question: str
+    session_id: str
+
+class QuestionWithAnswerResponse(BaseModel):
+    session_id: str
+    question: str
+    answer: str
+    status: str
+    message: str
+
 def create_status_callback(session_id: str):
     """Create a status callback function for a specific session"""
     def callback(message: str):
@@ -78,6 +89,7 @@ async def root():
             "POST /bot/load_state": "Load browser state for a session",
             "POST /bot/save_state": "Save browser state for a session",
             "POST /bot/ask": "Ask a question to ChatGPT",
+            "POST /bot/ask_with_answer": "Ask a question and get complete answer immediately",
             "GET /bot/status/{session_id}": "Get session status and logs",
             "POST /bot/close": "Close browser for a session",
             "DELETE /bot/{session_id}": "Delete a bot session"
@@ -237,6 +249,49 @@ async def ask_question(request: QuestionRequest, background_tasks: BackgroundTas
             status="processing",
             message="Question submitted, check status endpoint for response"
         )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error asking question: {str(e)}")
+
+@app.post("/bot/ask_with_answer", response_model=QuestionWithAnswerResponse)
+async def ask_question_with_answer(request: QuestionWithAnswerRequest):
+    """Ask a question to ChatGPT and return the complete answer immediately"""
+    try:
+        session_id = request.session_id
+        question = request.question.strip()
+        
+        if not question:
+            raise HTTPException(status_code=400, detail="Question cannot be empty")
+        
+        if session_id not in bot_instances:
+            raise HTTPException(status_code=404, detail=f"Session {session_id} not found")
+        
+        bot = bot_instances[session_id]
+        
+        # Ask question synchronously and get complete response
+        response = bot.ask_question_and_get_response(question)
+        
+        if response:
+            # Auto-save state after successful interaction
+            bot.save_browser_state()
+            
+            return QuestionWithAnswerResponse(
+                session_id=session_id,
+                question=question,
+                answer=response,
+                status="completed",
+                message="Question answered successfully"
+            )
+        else:
+            return QuestionWithAnswerResponse(
+                session_id=session_id,
+                question=question,
+                answer="No response received",
+                status="failed",
+                message="Failed to get response from ChatGPT"
+            )
         
     except HTTPException:
         raise
