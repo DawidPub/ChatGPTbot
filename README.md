@@ -6,7 +6,6 @@ Complete documentation for the ChatGPT Bot project - a ChatGPT automation system
 
 # Table of Contents
 
-- [📚 Wiki Documentation](#-wiki-documentation)
 - [🎯 Project Overview](#-project-overview)
 - [📦 Installation](#-installation)
 - [🚀 Quick Start](#-quick-start)
@@ -25,10 +24,6 @@ Complete documentation for the ChatGPT Bot project - a ChatGPT automation system
 - [📋 Examples](#-examples)
 
 ---
-
-# 📚 Wiki Documentation
-
-Complete documentation for the ChatGPT Bot project - a ChatGPT automation system with multiple operation modes.
 
 ## 📖 Table of Contents
 
