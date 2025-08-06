@@ -4,7 +4,7 @@ import json
 
 def test_api():
     """Test ChatGPT Bot API functionality"""
-    api_base = "http://localhost:8000"
+    api_base = "http://localhost:8008"
     
     print("🧪 Testing ChatGPT Bot API")
     print("=" * 50)
@@ -85,7 +85,7 @@ def test_api():
         print("   ✅ Status monitoring functional")
         print("\n💡 You can now use:")
         print("   • chatgpt_api_client.py - GUI client")
-        print("   • http://localhost:8000/docs - Interactive API docs")
+        print("   • http://localhost:8008/docs - Interactive API docs")
         
         return True
         

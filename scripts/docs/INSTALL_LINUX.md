@@ -132,7 +132,7 @@ sudo apt install docker.io docker-compose  # Ubuntu/Debian
 # Build and run
 docker-compose up --build
 
-# Access API at http://localhost:8000
+# Access API at http://localhost:8008
 ```
 
 ## 🔧 Troubleshooting
@@ -260,24 +260,24 @@ python3 test_api.py
 ### Firewall (if needed)
 ```bash
 # Ubuntu/Debian (ufw)
-sudo ufw allow 8000/tcp
+sudo ufw allow 8008/tcp
 
 # CentOS/RHEL (firewalld)
-sudo firewall-cmd --add-port=8000/tcp --permanent
+sudo firewall-cmd --add-port=8008/tcp --permanent
 sudo firewall-cmd --reload
 
 # iptables (generic)
-sudo iptables -A INPUT -p tcp --dport 8000 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 8008 -j ACCEPT
 ```
 
 ### Access from Other Machines
 Edit `chatgpt_api_server.py` and change:
 ```python
 # From:
-uvicorn.run(app, host="0.0.0.0", port=8000)
+uvicorn.run(app, host="0.0.0.0", port=8008)
 
 # To (for external access):
-uvicorn.run(app, host="0.0.0.0", port=8000)
+uvicorn.run(app, host="0.0.0.0", port=8008)
 ```
 
 ## 📁 File Permissions Reference

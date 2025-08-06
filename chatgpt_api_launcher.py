@@ -149,7 +149,7 @@ class APILauncher:
             def check_server():
                 time.sleep(3)
                 try:
-                    response = requests.get("http://localhost:8000/", timeout=5)
+                    response = requests.get("http://localhost:8008/", timeout=5)
                     if response.status_code == 200:
                         self.log("✅ API server is responding")
                     else:
@@ -231,7 +231,7 @@ class APILauncher:
             self.log("⏳ Waiting for server to be ready...")
             for i in range(10):
                 try:
-                    response = requests.get("http://localhost:8000/", timeout=2)
+                    response = requests.get("http://localhost:8008/", timeout=2)
                     if response.status_code == 200:
                         break
                 except:

@@ -93,11 +93,11 @@ both: check-python
 docs:
 	@echo "📖 Opening API documentation..."
 	@if command -v xdg-open >/dev/null 2>&1; then \
-		xdg-open http://localhost:8000/docs; \
+		xdg-open http://localhost:8008/docs; \
 	elif command -v open >/dev/null 2>&1; then \
-		open http://localhost:8000/docs; \
+		open http://localhost:8008/docs; \
 	else \
-		echo "Please open: http://localhost:8000/docs"; \
+		echo "Please open: http://localhost:8008/docs"; \
 	fi
 
 # Run API tests

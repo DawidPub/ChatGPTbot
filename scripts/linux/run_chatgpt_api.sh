@@ -65,8 +65,8 @@ launch_gui() {
 start_server() {
     echo ""
     echo -e "${BLUE}🖥️ Starting API Server...${NC}"
-    echo -e "${CYAN}📖 API Documentation will be available at: http://localhost:8000/docs${NC}"
-    echo -e "${CYAN}🔗 API Root: http://localhost:8000/${NC}"
+    echo -e "${CYAN}📖 API Documentation will be available at: http://localhost:8008/docs${NC}"
+    echo -e "${CYAN}🔗 API Root: http://localhost:8008/${NC}"
     echo ""
     $PYTHON_CMD chatgpt_api_server.py
     return_to_menu
@@ -109,17 +109,17 @@ open_docs() {
     
     # Try different browsers
     if command -v xdg-open &> /dev/null; then
-        xdg-open http://localhost:8000/docs
+        xdg-open http://localhost:8008/docs
     elif command -v gnome-open &> /dev/null; then
-        gnome-open http://localhost:8000/docs
+        gnome-open http://localhost:8008/docs
     elif command -v firefox &> /dev/null; then
-        firefox http://localhost:8000/docs &
+        firefox http://localhost:8008/docs &
     elif command -v chromium-browser &> /dev/null; then
-        chromium-browser http://localhost:8000/docs &
+        chromium-browser http://localhost:8008/docs &
     elif command -v google-chrome &> /dev/null; then
-        google-chrome http://localhost:8000/docs &
+        google-chrome http://localhost:8008/docs &
     else
-        echo -e "${YELLOW}Could not find browser. Please open: http://localhost:8000/docs${NC}"
+        echo -e "${YELLOW}Could not find browser. Please open: http://localhost:8008/docs${NC}"
     fi
     return_to_menu
 }

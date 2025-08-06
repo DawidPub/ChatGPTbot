@@ -108,7 +108,7 @@ class ChatGPTGUI:
                 self.ask_btn.config(state='normal')
                 
                 # Automatically try to load browser state
-                # self.bot.load_browser_state()
+                self.bot.load_browser_state()
             else:
                 self.launch_btn.config(state='normal')
                 

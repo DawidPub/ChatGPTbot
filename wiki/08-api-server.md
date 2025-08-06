@@ -13,7 +13,7 @@ python chatgpt_api_server.py
 
 ### Metoda 2: Uvicorn
 ```bash
-uvicorn chatgpt_api_server:app --host 0.0.0.0 --port 8000 --reload
+uvicorn chatgpt_api_server:app --host 0.0.0.0 --port 8008 --reload
 ```
 
 ### Metoda 3: Makefile
@@ -23,7 +23,7 @@ make server
 
 ### Metoda 4: Docker
 ```bash
-docker run -p 8000:8000 chatgpt-bot-api
+docker run -p 8008:8008 chatgpt-bot-api
 ```
 
 ## 🏗️ Architektura
@@ -487,7 +487,7 @@ from typing import Optional
 
 class Settings:
     API_HOST: str = os.getenv("API_HOST", "localhost")
-    API_PORT: int = int(os.getenv("API_PORT", 8000))
+    API_PORT: int = int(os.getenv("API_PORT", 8008))
     DEBUG: bool = os.getenv("DEBUG", "false").lower() == "true"
     MAX_SESSIONS: int = int(os.getenv("MAX_SESSIONS", 10))
     SESSION_TIMEOUT: int = int(os.getenv("SESSION_TIMEOUT", 3600))

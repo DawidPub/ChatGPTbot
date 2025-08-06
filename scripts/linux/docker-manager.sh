@@ -60,7 +60,7 @@ start_production() {
     show_access_info
     
     echo -e "${GREEN}✅ Production environment started!${NC}"
-    echo -e "${YELLOW}🔗 API available at: http://localhost:8000${NC}"
+    echo -e "${YELLOW}🔗 API available at: http://localhost:8008${NC}"
     echo -e "${YELLOW}🖥️ VNC available at: localhost:5900${NC}"
 }
 
@@ -107,7 +107,7 @@ start_full_stack() {
     
     echo -e "${GREEN}✅ Full stack started!${NC}"
     echo -e "${YELLOW}🔗 Nginx proxy: http://localhost:80${NC}"
-    echo -e "${YELLOW}🔗 Direct API: http://localhost:8000${NC}"
+    echo -e "${YELLOW}🔗 Direct API: http://localhost:8008${NC}"
     echo -e "${YELLOW}🔗 Redis: localhost:6379${NC}"
 }
 
@@ -192,10 +192,10 @@ show_access_info() {
     echo ""
     echo -e "${CYAN}🌍 Access Information:${NC}"
     echo "┌─────────────────────────────────────────────────────────┐"
-    echo "│ 🔗 API Server:      http://localhost:8000              │"
-    echo "│ 📖 API Docs:        http://localhost:8000/docs         │"
+    echo "│ 🔗 API Server:      http://localhost:8008              │"
+    echo "│ 📖 API Docs:        http://localhost:8008/docs         │"
     echo "│ 🖥️ VNC GUI:         localhost:5900 (password: none)    │"
-    echo "│ 🔄 Health Check:    http://localhost:8000/             │"
+    echo "│ 🔄 Health Check:    http://localhost:8008/             │"
     echo "└─────────────────────────────────────────────────────────┘"
 }
 
@@ -204,7 +204,7 @@ show_all_urls() {
     echo ""
     echo -e "${CYAN}🌐 All Possible URLs:${NC}"
     echo "┌─────────────────────────────────────────────────────────┐"
-    echo "│ 🏭 Production API:   http://localhost:8000              │"
+    echo "│ 🏭 Production API:   http://localhost:8008              │"
     echo "│ 🛠️ Development API:  http://localhost:8001              │"
     echo "│ 🌐 Nginx Proxy:     http://localhost:80               │"
     echo "│ 🔴 Redis:           localhost:6379                     │"

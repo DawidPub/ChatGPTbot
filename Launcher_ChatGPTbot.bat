@@ -47,8 +47,8 @@ goto menu
 :start_server
 echo.
 echo  Starting API Server...
-echo  API Documentation will be available at: http://localhost:8000/docs
-echo  API Root: http://localhost:8000/
+echo  API Documentation will be available at: http://localhost:8008/docs
+echo  API Root: http://localhost:8008/
 echo.
 python chatgpt_api_server.py
 goto menu
@@ -78,7 +78,7 @@ goto menu
 echo.
 echo  Opening API Documentation...
 echo  Make sure API server is running first!
-start http://localhost:8000/docs
+start http://localhost:8008/docs
 goto menu
 
 :invalid_choice

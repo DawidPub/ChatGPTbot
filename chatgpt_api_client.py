@@ -9,7 +9,7 @@ from typing import Optional
 
 
 class ChatGPTAPIClient:
-    def __init__(self, api_base_url: str = "http://localhost:8000"):
+    def __init__(self, api_base_url: str = "http://localhost:8008"):
         """Initialize API client"""
         self.api_base_url = api_base_url.rstrip('/')
         self.session_id = None
@@ -353,7 +353,7 @@ class ChatGPTAPIClient:
 
 if __name__ == "__main__":
     print("🚀 Starting ChatGPT Bot API Client...")
-    print("💡 Make sure the API server is running on http://localhost:8000")
+    print("💡 Make sure the API server is running on http://localhost:8008")
     
     client = ChatGPTAPIClient()
     client.run()

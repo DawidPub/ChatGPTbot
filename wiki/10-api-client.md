@@ -34,7 +34,7 @@ from datetime import datetime
 import threading
 
 class ChatGPTAPIClient:
-    def __init__(self, base_url="http://localhost:8000"):
+    def __init__(self, base_url="http://localhost:8008"):
         self.base_url = base_url
         self.session_id = None
         self.session = requests.Session()
@@ -68,7 +68,7 @@ def test_connection(self):
 ┌─────────────────────────────────────────────────────────┐
 │ ChatGPT Bot - API Client                                │
 ├─────────────────────────────────────────────────────────┤
-│ Server: [http://localhost:8000] [Test] Status: Connected│
+│ Server: [http://localhost:8008] [Test] Status: Connected│
 ├─────────────────────────────────────────────────────────┤
 │ Session: [session-123] [New] [Delete] [Refresh]        │
 ├─────────────────────────────────────────────────────────┤

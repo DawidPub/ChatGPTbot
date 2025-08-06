@@ -11,7 +11,7 @@ scrape_configs:
   # ChatGPT Bot API metrics
   - job_name: 'chatgpt-bot-api'
     static_configs:
-      - targets: ['chatgpt-api:8000']
+      - targets: ['chatgpt-api:8008']
     metrics_path: '/metrics'
     scrape_interval: 30s
     scrape_timeout: 10s

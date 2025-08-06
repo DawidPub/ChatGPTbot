@@ -151,7 +151,7 @@ def get_or_create_bot(session_id: str) -> ChatGPTBot:
 import requests
 
 class APIClient:
-    def __init__(self, base_url="http://localhost:8000"):
+    def __init__(self, base_url="http://localhost:8008"):
         self.base_url = base_url
         self.session_id = None
     
@@ -284,7 +284,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 ```python
 # Server Configuration
 API_HOST = os.getenv("API_HOST", "localhost")
-API_PORT = int(os.getenv("API_PORT", 8000))
+API_PORT = int(os.getenv("API_PORT", 8008))
 DEBUG_MODE = os.getenv("DEBUG", "false").lower() == "true"
 
 # Browser Configuration
@@ -303,7 +303,7 @@ BROWSER_TIMEOUT = int(os.getenv("BROWSER_TIMEOUT", 30))
     },
     "api": {
         "host": "localhost",
-        "port": 8000,
+        "port": 8008,
         "debug": false
     }
 }

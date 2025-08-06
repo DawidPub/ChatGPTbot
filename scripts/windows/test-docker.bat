@@ -43,9 +43,9 @@ echo ✅ docker-compose.yml is valid
 
 REM Check available ports
 echo ✅ Checking port availability...
-netstat -ano | findstr :8000 >nul
+netstat -ano | findstr :8008 >nul
 if %ERRORLEVEL% EQU 0 (
-    echo ⚠️ Port 8000 is already in use!
+    echo ⚠️ Port 8008 is already in use!
     echo You may need to stop other services or change the port.
 )
 
@@ -63,7 +63,7 @@ echo.
 echo Next steps:
 echo 1. Run: start-docker.bat
 echo 2. Wait for startup (may take a few minutes first time)
-echo 3. Open: http://localhost:8000
+echo 3. Open: http://localhost:8008
 echo 4. VNC: localhost:5900
 echo.
 pause

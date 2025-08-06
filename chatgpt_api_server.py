@@ -406,6 +406,6 @@ async def list_sessions():
 
 if __name__ == "__main__":
     print("🚀 Starting ChatGPT Bot API Server...")
-    print("📖 API Documentation will be available at: http://localhost:8000/docs")
-    print("🔗 API Root: http://localhost:8000/")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    print("📖 API Documentation will be available at: http://localhost:8008/docs")
+    print("🔗 API Root: http://localhost:8008/")
+    uvicorn.run(app, host="0.0.0.0", port=8008)

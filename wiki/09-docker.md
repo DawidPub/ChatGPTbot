@@ -49,11 +49,11 @@ RUN useradd -m -u 1000 chatgpt && chown -R chatgpt:chatgpt /app
 USER chatgpt
 
 # Expose port
-EXPOSE 8000
+EXPOSE 8008
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:8008/health || exit 1
 
 # Run the application
 CMD ["python", "chatgpt_api_server.py"]
@@ -117,10 +117,10 @@ USER chatgpt
 # Make sure scripts in .local are usable
 ENV PATH=/root/.local/bin:$PATH
 
-EXPOSE 8000
+EXPOSE 8008
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:8008/health || exit 1
 
 CMD ["python", "chatgpt_api_server.py"]
 ```
@@ -135,17 +135,17 @@ services:
   chatgpt-api:
     build: .
     ports:
-      - "8000:8000"
+      - "8008:8008"
     environment:
       - API_HOST=0.0.0.0
-      - API_PORT=8000
+      - API_PORT=8008
       - DEBUG=false
     volumes:
       - ./data:/app/data
       - /dev/shm:/dev/shm
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8008/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -160,10 +160,10 @@ services:
   chatgpt-api:
     build: .
     ports:
-      - "8000:8000"
+      - "8008:8008"
     environment:
       - API_HOST=0.0.0.0
-      - API_PORT=8000
+      - API_PORT=8008
       - DEBUG=false
       - MAX_SESSIONS=20
       - SESSION_TIMEOUT=7200
@@ -181,7 +181,7 @@ services:
           memory: 1G
           cpus: '0.5'
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8008/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -226,17 +226,17 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - "8000:8000"
+      - "8008:8008"
     environment:
       - API_HOST=0.0.0.0
-      - API_PORT=8000
+      - API_PORT=8008
       - DEBUG=true
       - RELOAD=true
     volumes:
       - .:/app
       - /dev/shm:/dev/shm
     restart: unless-stopped
-    command: ["uvicorn", "chatgpt_api_server:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    command: ["uvicorn", "chatgpt_api_server:app", "--host", "0.0.0.0", "--port", "8008", "--reload"]
 ```
 
 ## 🚀 Uruchomienie
@@ -251,7 +251,7 @@ docker build -t chatgpt-bot-api .
 # Run container
 docker run -d \
   --name chatgpt-bot \
-  -p 8000:8000 \
+  -p 8008:8008 \
   -v $(pwd)/data:/app/data \
   --shm-size=2g \
   chatgpt-bot-api
@@ -304,10 +304,10 @@ echo "⏳ Waiting for services to start..."
 sleep 10
 
 # Check health
-if curl -f http://localhost:8000/health > /dev/null 2>&1; then
+if curl -f http://localhost:8008/health > /dev/null 2>&1; then
     echo "✅ ChatGPT Bot API is running!"
-    echo "📖 API Documentation: http://localhost:8000/docs"
-    echo "🔍 Health Check: http://localhost:8000/health"
+    echo "📖 API Documentation: http://localhost:8008/docs"
+    echo "🔍 Health Check: http://localhost:8008/health"
 else
     echo "❌ Service failed to start. Check logs:"
     docker-compose logs
@@ -340,14 +340,14 @@ echo ⏳ Waiting for services to start...
 timeout /t 10 /nobreak >nul
 
 REM Check health
-curl -f http://localhost:8000/health >nul 2>&1
+curl -f http://localhost:8008/health >nul 2>&1
 if errorlevel 1 (
     echo ❌ Service failed to start. Check logs:
     docker-compose logs
 ) else (
     echo ✅ ChatGPT Bot API is running!
-    echo 📖 API Documentation: http://localhost:8000/docs
-    echo 🔍 Health Check: http://localhost:8000/health
+    echo 📖 API Documentation: http://localhost:8008/docs
+    echo 🔍 Health Check: http://localhost:8008/health
 )
 
 pause
@@ -359,7 +359,7 @@ pause
 ```bash
 # .env file
 API_HOST=0.0.0.0
-API_PORT=8000
+API_PORT=8008
 DEBUG=false
 MAX_SESSIONS=10
 SESSION_TIMEOUT=3600
@@ -439,7 +439,7 @@ secrets:
 ### Health Checks
 ```yaml
 healthcheck:
-  test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+  test: ["CMD", "curl", "-f", "http://localhost:8008/health"]
   interval: 30s
   timeout: 10s
   retries: 3
@@ -497,9 +497,9 @@ jobs:
     
     - name: Test Docker image
       run: |
-        docker run -d --name test-container -p 8000:8000 chatgpt-bot-api
+        docker run -d --name test-container -p 8008:8008 chatgpt-bot-api
         sleep 30
-        curl -f http://localhost:8000/health
+        curl -f http://localhost:8008/health
         docker stop test-container
     
     - name: Push to registry
@@ -529,7 +529,7 @@ services:
         delay: 5s
         max_attempts: 3
     ports:
-      - "8000:8000"
+      - "8008:8008"
     networks:
       - chatgpt-network
 
@@ -558,12 +558,12 @@ spec:
       - name: chatgpt-bot-api
         image: chatgpt-bot-api:latest
         ports:
-        - containerPort: 8000
+        - containerPort: 8008
         env:
         - name: API_HOST
           value: "0.0.0.0"
         - name: API_PORT
-          value: "8000"
+          value: "8008"
         resources:
           limits:
             memory: "2Gi"
@@ -574,13 +574,13 @@ spec:
         livenessProbe:
           httpGet:
             path: /health
-            port: 8000
+            port: 8008
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /health
-            port: 8000
+            port: 8008
           initialDelaySeconds: 5
           periodSeconds: 5
 
@@ -595,7 +595,7 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 8000
+    targetPort: 8008
   type: LoadBalancer
 ```
 

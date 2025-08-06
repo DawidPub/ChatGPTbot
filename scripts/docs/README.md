@@ -86,8 +86,8 @@ RUN_ChatGPT_API.bat
 ## 🔧 System Components
 
 ### `chatgpt_api_server.py` - FastAPI Server
-- **Port**: 8000 (default)
-- **Documentation**: http://localhost:8000/docs
+- **Port**: 8008 (default)
+- **Documentation**: http://localhost:8008/docs
 - **Features**: Bot Management, Sessions, API Endpoints
 
 ### `chatgpt_api_client.py` - GUI Client
@@ -129,21 +129,21 @@ RUN_ChatGPT_API.bat
 import requests
 
 # Create a session
-response = requests.post("http://localhost:8000/bot/create")
+response = requests.post("http://localhost:8008/bot/create")
 session_id = response.json()["session_id"]
 
 # Launch browser
-requests.post("http://localhost:8000/bot/launch",
+requests.post("http://localhost:8008/bot/launch",
 
 json={"session_id": session_id})
 
 # Ask a question
-requests.post("http://localhost:8000/bot/ask",
+requests.post("http://localhost:8008/bot/ask",
 
 json={"session_id": session_id, "question": "What is AI?"})
 
 # Check status
-status = requests.get(f"http://localhost:8000/bot/status/{session_id}")
+status = requests.get(f"http://localhost:8008/bot/status/{session_id}")
 print(status.json())
 ```
 
@@ -161,7 +161,7 @@ print(status.json())
 from chatgpt_api_client import ChatGPTAPIClient
 
 # Create a client
-client = ChatGPTAPIClient("http://localhost:8000")
+client = ChatGPTAPIClient("http://localhost:8008")
 
 # Connect and create a session programmatically
 # (requires modifying the class for programmatic use)
@@ -172,7 +172,7 @@ client = ChatGPTAPIClient("http://localhost:8000")
 import requests
 import time
 
-api_base = "http://localhost:8000"
+api_base = "http://localhost:8008"
 questions = ["What is AI?", "Explain Python", "How does ML work?"]
 
 # Create a session

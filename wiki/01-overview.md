@@ -164,7 +164,7 @@ python chatgpt_api_server.py
 docker-compose up -d
 
 # Access API documentation
-open http://localhost:8000/docs
+open http://localhost:8008/docs
 ```
 
 ## 🔄 Workflow Examples

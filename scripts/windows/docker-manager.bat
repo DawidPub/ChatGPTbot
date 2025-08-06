@@ -70,7 +70,7 @@ echo 🚀 Starting Production environment...
 docker-compose -p %PROJECT_NAME% up -d chatgpt-api
 call :show_access_info
 echo ✅ Production environment started!
-echo 🔗 API available at: http://localhost:8000
+echo 🔗 API available at: http://localhost:8008
 echo 🖥️ VNC available at: localhost:5900
 goto return_to_menu
 
@@ -118,7 +118,7 @@ docker-compose -p %PROJECT_NAME% --profile redis --profile nginx up -d
 call :show_access_info
 echo ✅ Full stack started!
 echo 🔗 Nginx proxy: http://localhost:80
-echo 🔗 Direct API: http://localhost:8000
+echo 🔗 Direct API: http://localhost:8008
 echo 🔗 Redis: localhost:6379
 goto return_to_menu
 
@@ -202,10 +202,10 @@ goto return_to_menu
 echo.
 echo 🌍 Access Information:
 echo ┌─────────────────────────────────────────────────────────┐
-echo │ 🔗 API Server:      http://localhost:8000              │
-echo │ 📖 API Docs:        http://localhost:8000/docs         │
+echo │ 🔗 API Server:      http://localhost:8008              │
+echo │ 📖 API Docs:        http://localhost:8008/docs         │
 echo │ 🖥️ VNC GUI:         localhost:5900 (password: none)    │
-echo │ 🔄 Health Check:    http://localhost:8000/             │
+echo │ 🔄 Health Check:    http://localhost:8008/             │
 echo └─────────────────────────────────────────────────────────┘
 exit /b
 
@@ -214,7 +214,7 @@ call :show_access_info
 echo.
 echo 🌐 All Possible URLs:
 echo ┌─────────────────────────────────────────────────────────┐
-echo │ 🏭 Production API:   http://localhost:8000              │
+echo │ 🏭 Production API:   http://localhost:8008              │
 echo │ 🛠️ Development API:  http://localhost:8001              │
 echo │ 🌐 Nginx Proxy:     http://localhost:80               │
 echo │ 🔴 Redis:           localhost:6379                     │

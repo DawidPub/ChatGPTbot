@@ -167,7 +167,7 @@ cd chatgpt-bot
 docker-compose up -d
 
 # Verify installation
-curl http://localhost:8000/health
+curl http://localhost:8008/health
 ```
 
 ## 🛠️ Installation Scripts
@@ -352,7 +352,7 @@ python main.py
 # Test API server
 python chatgpt_api_server.py
 # In another terminal:
-curl http://localhost:8000/health
+curl http://localhost:8008/health
 
 # Test API launcher
 python chatgpt_api_launcher.py
@@ -467,7 +467,7 @@ After successful installation:
 
 1. **Read the Quick Start Guide**: `wiki/03-quick-start.md`
 2. **Explore Examples**: `wiki/16-examples.md`
-3. **Check API Documentation**: `http://localhost:8000/docs`
+3. **Check API Documentation**: `http://localhost:8008/docs`
 4. **Join Community**: GitHub Discussions
 5. **Report Issues**: GitHub Issues
 

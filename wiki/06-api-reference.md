@@ -4,7 +4,7 @@
 
 ChatGPT Bot API to RESTful API zbudowane na FastAPI, umożliwiające zdalne zarządzanie instancjami ChatGPT Bot.
 
-**Base URL**: `http://localhost:8000`
+**Base URL**: `http://localhost:8008`
 **Content-Type**: `application/json`
 
 ## 🔐 Uwierzytelnianie
@@ -287,7 +287,7 @@ Real-time komunikacja z botem.
 import requests
 
 class ChatGPTAPIClient:
-    def __init__(self, base_url="http://localhost:8000"):
+    def __init__(self, base_url="http://localhost:8008"):
         self.base_url = base_url
         self.session_id = None
     
@@ -314,7 +314,7 @@ class ChatGPTAPIClient:
 ### JavaScript Client
 ```javascript
 class ChatGPTAPIClient {
-    constructor(baseUrl = 'http://localhost:8000') {
+    constructor(baseUrl = 'http://localhost:8008') {
         this.baseUrl = baseUrl;
         this.sessionId = null;
     }
@@ -350,17 +350,17 @@ class ChatGPTAPIClient {
 ### Using curl
 ```bash
 # Launch browser
-curl -X POST http://localhost:8000/bot/launch \
+curl -X POST http://localhost:8008/bot/launch \
   -H "Content-Type: application/json" \
   -d '{"headless": false}'
 
 # Ask question
-curl -X POST http://localhost:8000/bot/ask \
+curl -X POST http://localhost:8008/bot/ask \
   -H "Content-Type: application/json" \
   -d '{"question": "Hello", "session_id": "your-session-id"}'
 
 # Check status
-curl http://localhost:8000/bot/status?session_id=your-session-id
+curl http://localhost:8008/bot/status?session_id=your-session-id
 ```
 
 ### Using Python requests
@@ -368,12 +368,12 @@ curl http://localhost:8000/bot/status?session_id=your-session-id
 import requests
 
 # Launch browser
-response = requests.post('http://localhost:8000/bot/launch', 
+response = requests.post('http://localhost:8008/bot/launch', 
                         json={'headless': False})
 session_id = response.json()['data']['session_id']
 
 # Ask question
-response = requests.post('http://localhost:8000/bot/ask', 
+response = requests.post('http://localhost:8008/bot/ask', 
                         json={
                             'question': 'What is Python?',
                             'session_id': session_id
@@ -398,12 +398,12 @@ print(response.json())
 ### Environment Variables
 ```bash
 API_HOST=localhost
-API_PORT=8000
+API_PORT=8008
 DEBUG=false
 MAX_SESSIONS=10
 SESSION_TIMEOUT=3600
 ```
 
 ### API Documentation
-Dostępna pod adresem: `http://localhost:8000/docs` (Swagger UI)
-Alternatywnie: `http://localhost:8000/redoc` (ReDoc)
+Dostępna pod adresem: `http://localhost:8008/docs` (Swagger UI)
+Alternatywnie: `http://localhost:8008/redoc` (ReDoc)

@@ -57,19 +57,19 @@ docker-compose up -d
 
 ### Step 2: Access API Documentation
 Open your browser and navigate to:
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
-- **Health Check**: http://localhost:8000/health
+- **Swagger UI**: http://localhost:8008/docs
+- **ReDoc**: http://localhost:8008/redoc
+- **Health Check**: http://localhost:8008/health
 
 ### Step 3: Test API with curl
 ```bash
 # Launch browser
-curl -X POST "http://localhost:8000/bot/launch" \
+curl -X POST "http://localhost:8008/bot/launch" \
      -H "Content-Type: application/json" \
      -d '{"headless": false}'
 
 # Ask a question (replace SESSION_ID with actual ID from launch response)
-curl -X POST "http://localhost:8000/bot/ask" \
+curl -X POST "http://localhost:8008/bot/ask" \
      -H "Content-Type: application/json" \
      -d '{"question": "Hello, ChatGPT!", "session_id": "SESSION_ID"}'
 ```
@@ -102,7 +102,7 @@ docker-compose ps
 ### Step 2: Verify Installation
 ```bash
 # Check API health
-curl http://localhost:8000/health
+curl http://localhost:8008/health
 
 # View logs
 docker-compose logs -f
@@ -111,7 +111,7 @@ docker-compose logs -f
 ### Step 3: Use the API
 ```bash
 # Launch browser in container
-curl -X POST "http://localhost:8000/bot/launch" \
+curl -X POST "http://localhost:8008/bot/launch" \
      -H "Content-Type: application/json" \
      -d '{"headless": true}'
 ```
@@ -159,12 +159,12 @@ bot.close_browser()
 import requests
 
 # Launch browser
-response = requests.post('http://localhost:8000/bot/launch', 
+response = requests.post('http://localhost:8008/bot/launch', 
                         json={'headless': False})
 session_id = response.json()['data']['session_id']
 
 # Ask question
-response = requests.post('http://localhost:8000/bot/ask', 
+response = requests.post('http://localhost:8008/bot/ask', 
                         json={
                             'question': 'Explain quantum computing',
                             'session_id': session_id
@@ -175,7 +175,7 @@ print(response.json()['data']['answer'])
 ### JavaScript Example
 ```javascript
 // Launch browser
-const launchResponse = await fetch('http://localhost:8000/bot/launch', {
+const launchResponse = await fetch('http://localhost:8008/bot/launch', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ headless: false })
@@ -183,7 +183,7 @@ const launchResponse = await fetch('http://localhost:8000/bot/launch', {
 const { session_id } = (await launchResponse.json()).data;
 
 // Ask question
-const askResponse = await fetch('http://localhost:8000/bot/ask', {
+const askResponse = await fetch('http://localhost:8008/bot/ask', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -201,7 +201,7 @@ console.log(result.data.answer);
 ```bash
 # API Configuration
 export API_HOST=localhost
-export API_PORT=8000
+export API_PORT=8008
 export DEBUG=false
 
 # Browser Configuration
@@ -224,7 +224,7 @@ export SESSION_TIMEOUT=3600
     },
     "api": {
         "host": "localhost",
-        "port": 8000,
+        "port": 8008,
         "debug": false,
         "max_sessions": 10
     },
@@ -260,8 +260,8 @@ export API_PORT=8001
 python chatgpt_api_server.py
 
 # Or kill existing process:
-lsof -ti:8000 | xargs kill -9  # Linux/macOS
-netstat -ano | findstr :8000   # Windows (find PID and kill)
+lsof -ti:8008 | xargs kill -9  # Linux/macOS
+netstat -ano | findstr :8008   # Windows (find PID and kill)
 ```
 
 ### Issue 4: ChatGPT Login Required

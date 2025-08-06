@@ -178,7 +178,7 @@ services:
   chatgpt-api:
     build: .
     ports:
-      - "8000:8000"
+      - "8008:8008"
     volumes:
       - .:/app
 ```
@@ -360,7 +360,7 @@ from chatgpt_bot_core import ChatGPTBot
 # config.py
 class Config:
     API_HOST = os.getenv("API_HOST", "localhost")
-    API_PORT = int(os.getenv("API_PORT", 8000))
+    API_PORT = int(os.getenv("API_PORT", 8008))
     DEBUG = os.getenv("DEBUG", "false").lower() == "true"
 ```
 

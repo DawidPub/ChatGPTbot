@@ -57,10 +57,10 @@ After starting, the following are available:
 
 | Service | URL | Description |
 |--------|------|------|
-| **API** | http://localhost:8000 | ChatGPT Bot Main API |
-| **Documentation** | http://localhost:8000/docs | Swagger UI |
+| **API** | http://localhost:8008 | ChatGPT Bot Main API |
+| **Documentation** | http://localhost:8008/docs | Swagger UI |
 | **VNC** | localhost:5900 | GUI Access (Passwordless) |
-| **Health Check** | http://localhost:8000/ | API Status |
+| **Health Check** | http://localhost:8008/ | API Status |
 
 ### Additional Services (with Profiles)
 | Service | URL | Profile |
@@ -171,8 +171,8 @@ REM Start Docker Desktop if not running
 
 ### Port busy
 ```batch
-REM Check what's using port 8000
-netstat -ano | findstr :8000
+REM Check what's using port 8008
+netstat -ano | findstr :8008
 
 REM Terminate the process using the port (PID from the previous command)
 taskkill /PID <PID> /F

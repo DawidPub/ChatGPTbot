@@ -8,7 +8,7 @@ services:
       target: production
     container_name: chatgpt-bot-api
     ports:
-      - "8000:8000"
+      - "8008:8008"
       - "5900:5900"  # VNC for GUI access
     environment:
       - PYTHONUNBUFFERED=1
@@ -21,7 +21,7 @@ services:
       - /dev/shm:/dev/shm  # Shared memory for Chrome
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      test: ["CMD", "curl", "-f", "http://localhost:8008/"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -44,7 +44,7 @@ services:
       target: development
     container_name: chatgpt-bot-api-dev
     ports:
-      - "8001:8000"
+      - "8001:8008"
       - "5901:5900"
       - "8888:8888"  # Jupyter
     environment:

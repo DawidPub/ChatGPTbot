@@ -66,7 +66,7 @@ RUN_ChatGPT_working.bat
 ### Quick Start
 1. Install Docker Desktop
 2. Run: `start-docker.bat` (Windows) or `./start-docker.sh` (Linux)
-3. Open: http://localhost:8000
+3. Open: http://localhost:8008
 
 ### Accessing the GUI via VNC
 - Address: localhost:5900
